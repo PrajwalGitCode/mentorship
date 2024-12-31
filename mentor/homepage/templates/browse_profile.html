@@ -1,0 +1,219 @@
+{% extends 'main.html' %}
+
+{% block body_block %}
+<div class="browse-container">
+
+    <!-- Filter Form -->
+    <form method="get" action="{% url 'browse_profile' %}" class="filter-form">
+        <div class="filter-item">
+            <label for="role">Role</label>
+            <select name="role" id="role" class="filter-select">
+                <option value="">Select Role</option>
+                {% for role in roles %}
+                    <option value="{{ role }}" {% if role == selected_role %}selected{% endif %}>{{ role }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="filter-item">
+            <label for="skills">Skills</label>
+            <div class="tag-container" id="skills">
+                {% for skill in skills %}
+                    <span class="tag {% if skill in selected_skills %}selected{% endif %}" data-value="{{ skill }}">{{ skill }}</span>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="skills" id="skills-input" value="{{ selected_skills|join:', ' }}">
+        </div>
+
+        <div class="filter-item">
+            <label for="interests">Interests</label>
+            <div class="tag-container" id="interests">
+                {% for interest in interests %}
+                    <span class="tag {% if interest in selected_interests %}selected{% endif %}" data-value="{{ interest }}">{{ interest }}</span>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="interests" id="interests-input" value="{{ selected_interests|join:', ' }}">
+        </div>
+
+        <button type="submit" class="filter-button">Apply Filters</button>
+    </form>
+
+    <!-- Profiles List -->
+    <h2 class="browse-title">Browse Profiles</h2>
+    <div class="profiles-list">
+        {% for profile in profiles %}
+            <div class="profile-card">
+                <h3>{{ profile.user.username }}</h3>
+                <p>{{ profile.name }}</p>
+                <a href="{% url 'profile_detail' profile.user.id %}" class="view-profile-btn">View Profile</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    /* Overall Container */
+    .browse-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        background: radial(135deg, rgb(32, 32, 32), #464646);
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        color: #f9f9f9;
+    }
+
+    /* Filter Form */
+    .filter-form {
+        background: #2a2a2a;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .filter-item {
+        margin-bottom: 20px;
+    }
+
+    .filter-select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #555;
+        background: #3c3c3c;
+        color: #f9f9f9;
+    }
+
+    .tag-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 10px 0;
+    }
+
+    .tag {
+        padding: 10px 15px;
+        font-size: 14px;
+        border-radius: 5px;
+        background-color: #3c3c3c;
+        color: #f9f9f9;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .tag.selected {
+        background-color: #ff00a2;
+        color: #fff;
+    }
+
+    .tag:hover {
+        background-color: #5a5a5a;
+    }
+
+    .filter-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(135deg, rgb(255, 9, 91), #d100ca);
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .filter-button:hover {
+        background-color: #45a049;
+    }
+
+    /* Profiles Section */
+    .browse-title {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: cyan;
+    }
+
+    .profiles-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .profile-card {
+        background: #292929;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: #f0f0f0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-card h3 {
+        font-size: 22px;
+        color: cyan;
+    }
+
+    .profile-card p {
+        margin: 15px 0;
+        font-size: 16px;
+        color: #ccc;
+    }
+
+    .view-profile-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        background: linear-gradient(135deg, rgb(255, 9, 91), #d100ca);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .view-profile-btn:hover {
+        background-color: cyan;
+    }
+</style>
+
+<script>
+    // Function to toggle selected class and update hidden input
+    function toggleTagSelection(event, tagContainer, inputId) {
+        const tag = event.target;
+        if (tag.classList.contains('tag')) {
+            tag.classList.toggle('selected');
+            const selectedTags = Array.from(tagContainer.querySelectorAll('.tag.selected')).map(tag => tag.dataset.value);
+            document.getElementById(inputId).value = selectedTags.join(', ');
+        }
+    }
+
+    // Initialize tag selection
+    function initializeTags(containerId, inputId) {
+        const container = document.getElementById(containerId);
+        const input = document.getElementById(inputId);
+        const selectedTags = input.value.split(',').map(tag => tag.trim());
+        selectedTags.forEach(tag => {
+            const tagElement = Array.from(container.getElementsByClassName('tag')).find(el => el.dataset.value === tag);
+            if (tagElement) tagElement.classList.add('selected');
+        });
+    }
+
+    // Add event listeners and initialize state
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeTags('skills', 'skills-input');
+        initializeTags('interests', 'interests-input');
+
+        document.getElementById('skills').addEventListener('click', event => toggleTagSelection(event, document.getElementById('skills'), 'skills-input'));
+        document.getElementById('interests').addEventListener('click', event => toggleTagSelection(event, document.getElementById('interests'), 'interests-input'));
+    });
+</script>
+{% endblock %}
