@@ -1,0 +1,440 @@
+{% extends 'main.html' %}
+
+{% block body_block %}
+
+{% load static %}
+
+<section class="some">
+
+</section>
+
+<header>
+  <h1>Welcome to Nebula Mentoring</h1>
+  <p>Connecting Mentors and Mentees for Growth and Success</p>
+  <a href="#features">Get Started</a>
+</header>
+
+<section class="features" id="features">
+  <div class="feature-box">
+    <i class="fa fa-search" aria-hidden="true"></i>
+    <h3>Find a Mentor</h3>
+    <p>Search and connect with experienced mentors in your desired field.</p>
+  </div>
+
+  <div class="feature-box">
+    <i class="fa fa-user" aria-hidden="true"></i>
+    <h3>Become a Mentor</h3>
+    <p>Share your knowledge and guide others towards success.</p>
+  </div>
+
+  <div class="feature-box">
+    <i class="fa fa-comments" aria-hidden="true"></i>
+    <h3>Engage in Discussions</h3>
+    <p>Collaborate with your mentor/mentee through easy online chat options.</p>
+  </div>
+</section>
+
+
+<!-- Benefits Section -->
+<section class="benefits">
+  <h2>Why Choose Nebula Mentoring?</h2>
+  <div class="benefit-container">
+    <div class="benefit-item">
+      <i class="fa fa-cogs"></i>
+      <h4>Dedicated Career Coaching</h4>
+      <p>Work smart with your own mentor by your side to guide you through every step of your journey.</p>
+    </div>
+    <div class="benefit-item">
+      <i class="fa fa-users"></i>
+      <h4>Thousands of Mentors</h4>
+      <p>Access a wide range of experts to find the perfect mentor for your career aspirations.</p>
+    </div>
+    <div class="benefit-item">
+      <i class="fa fa-calendar"></i>
+      <h4>Flexible Program Structures</h4>
+      <p>Choose the mentoring structure that fits your schedule, goals, and lifestyle.</p>
+    </div>
+    <div class="benefit-item">
+      <i class="fa fa-gift"></i>
+      <h4>Free Trial Available</h4>
+      <p>Start with a free trial to experience the value of mentorship before committing.</p>
+    </div>
+    <div class="benefit-item">
+      <i class="fa fa-comments"></i>
+      <h4>1-on-1 Calls & Personal Chats</h4>
+      <p>Engage in direct 1-on-1 calls and chats to discuss your progress and challenges.</p>
+    </div>
+    <div class="benefit-item">
+      <i class="fa fa-check-circle"></i>
+      <h4>96% Satisfaction Rate</h4>
+      <p>Our mentees consistently report high satisfaction with their mentoring experience.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Plans Section -->
+<section class="plans">
+  <h2>Our Mentorship Plans</h2>
+  <div class="plan-container">
+    <div class="plan-card">
+      <h3>Basic Plan</h3>
+      <p class="price">$49/month</p>
+      <ul>
+        <li>Access to mentor for up to 2 hours/month</li>
+        <li>Personalized guidance</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#signup" class="btn-plan">Sign Up</a>
+    </div>
+
+    <div class="plan-card featured">
+      <h3>Premium Plan</h3>
+      <p class="price">$99/month</p>
+      <ul>
+        <li>Access to mentor for up to 5 hours/month</li>
+        <li>Priority Support</li>
+        <li>1-on-1 coaching calls</li>
+      </ul>
+      <a href="#signup" class="btn-plan">Sign Up</a>
+    </div>
+
+    <div class="plan-card">
+      <h3>Elite Plan</h3>
+      <p class="price">$199/month</p>
+      <ul>
+        <li>Unlimited mentoring hours</li>
+        <li>Personalized coaching calls and help</li>
+        <li>Priority access to top mentors</li>
+      </ul>
+      <a href="#signup" class="btn-plan">Sign Up</a>
+    </div>
+  </div>
+</section>
+
+
+<section class="testimonials">
+  <h2>What Our Users Say</h2>
+  <div class="testimonial-container">
+    <div class="testimonial">
+      <p>"The mentorship program has been a game-changer for my career. My mentor provided invaluable insights and guidance that helped me land my dream job!"</p>
+      <h4>- John Doe, Mentee</h4>
+    </div>
+    <div class="testimonial">
+      <p>"Mentoring on Nebula has been an incredibly rewarding experience. Seeing my mentees grow and succeed is the best feeling."</p>
+      <h4>- Jane Smith, Mentor</h4>
+    </div>
+    <div class="testimonial">
+      <p>"The platform's ease of use and the quality of mentors available exceeded my expectations. Highly recommend Nebula Mentoring!"</p>
+      <h4>- Alice Johnson, Mentee</h4>
+    </div>
+    <div class="testimonial">
+      <p>"Nebula provides an excellent structure for mentoring relationships. It's amazing to connect with mentees worldwide."</p>
+      <h4>- Mike Brown, Mentor</h4>
+    </div>
+  </div>
+</section>
+
+<section class="step">
+  <h2>Ready to Take the First Step?</h2>
+  <p>Join the Mentorship Hub and transform your career today!</p>
+  <a href="{% url 'signup' %}">Sign Up Now</a>
+</section>
+
+<style>
+  /* General Styles */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: black;
+    color: white;
+  }
+
+  /* Header */
+  header {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1rem;
+    height: 100vh;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+
+  header p {
+    margin: 1rem 0 2rem;
+  }
+
+  header a {
+    background: #dd0081;
+    color: #ffffff;
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  section {
+    padding: 2rem 1rem;
+  }
+
+  /* Features Section */
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5.5rem;
+    color: white;
+  }
+
+  .feature-box {
+    background: rgb(56, 56, 56);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1.5rem;
+    width: 500px;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-box:hover {
+    transform: translateY(-10px);
+  }
+
+  .feature-box i {
+    font-size: 2.5rem;
+    color: #dd0081;
+    margin-bottom: 1rem;
+  }
+
+  /* Benefits Section */
+  .benefits {
+    background: rgb(0, 0, 0);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .benefits h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #fff;
+  }
+
+  .benefit-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+  }
+
+  .benefit-item {
+    background: rgb(56, 56, 56);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .benefit-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .benefit-item i {
+    font-size: 2.5rem;
+    color: #dd0081;
+    margin-bottom: 1.5rem;
+  }
+
+  .benefit-item h4 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .benefit-item p {
+    font-size: 1rem;
+    color: #ddd;
+  }
+
+  /* Pricing Plans Section */
+  .plans {
+    background: rgb(0, 0, 0);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .plans h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #fff;
+  }
+
+  .plan-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .plan-card {
+    background: rgb(56, 56, 56);
+    padding: 2rem;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .plan-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .plan-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .plan-card .price {
+    font-size: 2rem;
+    color: #dd0081;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-card ul li {
+    font-size: 1rem;
+    color: #ddd;
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-card a.btn-plan {
+    background-color: #dd0081;
+    color: #f3f3f3;
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: background 0.3s ease;
+  }
+
+  .plan-card a.btn-plan:hover {
+    background: rgb(90, 2, 70, 0.8);
+  }
+
+  .plan-card.featured {
+  background: rgb(56, 56, 56);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .plan-card.featured h3 {
+    color: #fff;
+  }
+
+  /* Step Section */
+.step {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  height: 90vh;
+  background: rgb(0, 0, 0);
+  border-radius: 10px;
+  margin: 2rem 0;
+}
+
+.step h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.step p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #ddd;
+}
+
+.step a {
+  background: #dd0081;
+  color: rgb(255, 255, 255);
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: background 0.3s ease;
+}
+
+.step a:hover {
+  background: rgb(90, 2, 70, 0.8);
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: radial-gradient(135deg, rgb(50, 50, 50), rgb(20, 20, 20));
+  color: white;
+}
+
+.testimonials h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.testimonial-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+}
+
+.testimonial {
+  background-color: rgb(56, 56, 56);
+  border-radius: 10px;
+  padding: 2rem;
+  width: 300px;
+  text-align: left;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.testimonial:hover {
+  transform: translateY(-10px);
+}
+
+.testimonial p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #ccc;
+}
+
+.testimonial h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #dd0081;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends 'main.html' %}
+
+{% block body_block %}
+<section class="requests">
+    <h1>Manage Your Requests</h1>
+
+    <!-- Sent Requests Section -->
+    <div class="requests-container sent-requests">
+        <h2>Sent Requests</h2>
+        {% if sent_requests %}
+            {% for request in sent_requests %}
+                <div class="request" id="sent-{{ request.id }}">
+                    <p>You have sent a connection request to {{ request.receiver.username }}.</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="request_id" value="{{ request.id }}">
+                        <button type="submit" name="action" value="cancel">Cancel Request</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-requests">You have not sent any connection requests.</p>
+        {% endif %}
+    </div>
+
+    <!-- Received Requests Section -->
+    <div class="requests-container received-requests">
+        <h2>Received Requests</h2>
+        {% if received_requests %}
+            {% for request in received_requests %}
+                <div class="request" id="received-{{ request.id }}">
+                    <p>{{ request.sender.username }} has sent you a connection request.</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="request_id" value="{{ request.id }}">
+                        <button type="submit" name="action" value="accept">Accept</button>
+                        <button type="submit" name="action" value="decline">Decline</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-requests">You have not received any connection requests.</p>
+        {% endif %}
+    </div>
+
+    <!-- Accepted Connections Section -->
+    <div class="requests-container accepted-connections">
+        <h2>Accepted Connections</h2>
+        <div id="accepted-connections">
+            {% if accepted_requests %}
+                {% for request in accepted_requests %}
+                    <div class="request" data-sender="{{ request.sender.username }}" data-receiver="{{ request.receiver.username }}">
+                        <p>
+                            You are connected with 
+                            {% if request.sender == user %}
+                                <!-- If the logged-in user is the sender, link to the receiver's profile -->
+                                <a href="{% url 'profile_detail' user_id=request.receiver.id %}">{{ request.receiver.username }}</a>
+                            {% else %}
+                                <!-- If the logged-in user is the receiver, link to the sender's profile -->
+                                <a href="{% url 'profile_detail' user_id=request.sender.id %}">{{ request.sender.username }}</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-requests">You have not accepted any connections.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+// Function to remove duplicate connections
+function removeDuplicates() {
+    const connections = document.querySelectorAll('#accepted-connections .request');
+    const seen = new Set();  // To track already displayed connections
+
+    connections.forEach(connection => {
+        const sender = connection.getAttribute('data-sender');
+        const receiver = connection.getAttribute('data-receiver');
+        const key = sender < receiver ? `${sender}-${receiver}` : `${receiver}-${sender}`;
+
+        if (seen.has(key)) {
+            connection.remove();  // Remove duplicate connection
+        } else {
+            seen.add(key);  // Add the connection to the set
+        }
+    });
+}
+
+// Call the function to remove duplicates once the page is loaded
+document.addEventListener('DOMContentLoaded', removeDuplicates);
+</script>
+
+<style>
+    .requests {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+        background: linear-gradient(135deg, #292929, #1e1e1e);
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        color: #f9f9f9;
+    }
+
+    .requests h1 {
+        text-align: center;
+        color: cyan;
+        margin-bottom: 30px;
+    }
+
+    .requests-container {
+        margin-bottom: 30px;
+        padding: 15px;
+        border-radius: 10px;
+        background: #1f1f1f;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .requests-container h2 {
+        color: lightblue;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .request {
+        background: #2a2a2a;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .request p {
+        margin: 5px 0;
+        color: #ccc;
+    }
+
+    .request a {
+        color: cyan;
+        text-decoration: none;
+    }
+
+    .request a:hover {
+        text-decoration: underline;
+    }
+
+    .request button {
+        margin: 5px 5px 0 0;
+        padding: 10px 15px;
+        color: white;
+        background: linear-gradient(135deg, rgb(255, 9, 91), #d100ca);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .request button:hover {
+        background-color: cyan;
+        color: black;
+    }
+
+    .no-requests {
+        text-align: center;
+        color: #ccc;
+        font-style: italic;
+    }
+</style>
+{% endblock %}
